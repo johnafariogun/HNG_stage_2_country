@@ -4,18 +4,23 @@ FastAPI service that fetches country data and exchange rates, caches them in MyS
 
 Setup
 
-1. Create a Python virtual environment and install dependencies:
+1. Clone the repo, create a Python virtual environment and install dependencies:
 
-   python -m venv .venv
-   .\.venv\Scripts\Activate.ps1; python -m pip install -r requirements.txt
+```bash
+git clone https://github.com/johnafariogun/HNG_stage_2_country
+cd HNG_stage_2_country
+python3 -m venv venv
+source venv/bin/activate
+pip install -r requirements.txt
+```
 
-2. Copy and edit `.env.example` to `.env` and set your MySQL credentials.
+2. Copy and edit `env.example` to `.env` and set your MySQL credentials.
 
 3. Create the MySQL database specified in `.env` (default: `country_cache`).
 
 4. Run the app with uvicorn:
 
-   .\.venv\Scripts\Activate.ps1; uvicorn country_service.main:app --host 0.0.0.0 --port 8000 --reload
+   uvicorn main:app
 
 Endpoints
 

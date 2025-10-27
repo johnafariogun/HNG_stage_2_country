@@ -50,6 +50,13 @@ def list_countries(region: Optional[str] = Query(None), currency: Optional[str] 
     countries = crud.get_countries(db, region=region, currency=currency, sort=sort)
     return countries
 
+@app.get("/countries/image")
+def get_image():
+    base_dir = os.path.dirname(__file__)
+    path = os.path.join(base_dir, "cache", "summary.png")
+    if not os.path.exists(path):
+        return JSONResponse(status_code=404, content={"error": "Summary image not found"})
+    return FileResponse(path, media_type="image/png")
 
 @app.get("/countries/{name}", response_model=schemas.CountryOut)
 def get_country(name: str = Path(...), db: Session = Depends(get_db)):
@@ -97,9 +104,4 @@ def get_status(db: Session = Depends(get_db)):
     return JSONResponse(status_code=200, content={"total_countries": total, "last_refreshed_at": last.isoformat() if last else None})
 
 
-@app.get("/countries/image")
-def get_image():
-    path = "cache/summary.png"
-    if not os.path.exists(path):
-        return JSONResponse(status_code=404, content={"error": "Summary image not found"})
-    return FileResponse(path, media_type="image/png")
+

@@ -19,7 +19,6 @@ def fetch_exchange_rates(timeout: int = 10) -> Dict[str, Any]:
     resp = requests.get(EXCHANGE_API, timeout=timeout)
     resp.raise_for_status()
     data = resp.json()
-    # The exchange API has structure: {"result":"success", "rates": {"NGN":1600, ...}}
     return data
 
 
